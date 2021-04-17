@@ -3,7 +3,7 @@
 ## 1
 Verificare numericamente l’approssimazione con rounding to even nell’intervallo [2**52, 2**53]
 
-`py
+```py
 x=2**52     #  = 4503599627370496
 print("x=",x)
 x+1           # = 4503599627370497
@@ -25,13 +25,13 @@ print("(x+1)+0.5",(x+1)+0.5)
                 #  4503599627370498 
                 # ossia viene arrotondato a (x+2) (per eccesso) 
                 # per soddisfare la regola del rounding to even
-`
+```
 
 ## 2
 
 Verificare numericamente che eps = 2**-52, spacing nell’intervallo [1, 2], e' il piu' piccolo x tale che _fl_(1+x) e' diverso da 1 
 
-`py
+```py
 p=0   
 t=53
 
@@ -45,12 +45,12 @@ f2=f+s/2   #risulta f
 print("f+s=",f1)
 print("f+s/2=",f2)
 print(" risultati per differenza f+s-f=", f1-f,"f+s/2-f=",f2-f)
-`
+```
 
 ## 3
 Confrontare i risultati delle operazioni (0.3 − 0.2) − 0.1 e 0.3 − (0.2 + 0.1) e fornire una spiegazione a quanto osservato. Ripetere l’esercizio con le operazioni 0.1 ∗ (0.2 + 0.5) e 0.1 ∗ 0.2 + 0.1 ∗ 0.5 
 
-`py
+```py
 print('......esempio 1......')
 x = 0.1;
 y = 0.2;
@@ -72,7 +72,7 @@ ris1=x*(y+z)
 ris2=x*y+x*z
 print("ris1=",ris1)
 print("ris2=",ris2)
-`
+```
 
 ## 4
 Siano a = 1.234567890123400e + 15, b = −1.234567890123401e + 15, c = 0.06. Calcolare (a + b) + c, (a + c) + b, a + (b + c). Che cosa si osserva? Ripetere l’esercizio con a = 0.23371258e − 4, b = 0.33678429e + 2, c = −0.33677911e + 2.
@@ -103,13 +103,13 @@ print('(a+c)+b=',ris2)
 ris3=a+(b+c)
 print('a+(b+c)=',ris2)
 
-Le operazioni macchina perdono la proprieta' associativa
-
+""" Le operazioni macchina perdono la proprieta' associativa """
+``` 
 
 ## 5
 Nell’aritmetica di Python sommare per i = 1, ..., 10 gli addendi xi con x1 = 1 e xi = .1e − 15, per i = 2, ..., 10. Come e' meglio procedere? 
 
-`py
+```py
 import numpy as np
 x=.1e-15;
     
@@ -130,4 +130,4 @@ s1=s1+1;
 print('Somma x+x+x+x+x+x+x+x+x+1:',s1)
 
 """ E' consigliabile sommare i numeri in ordine di modulo crescente """ 
-`
+```
