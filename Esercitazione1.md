@@ -78,7 +78,6 @@ print("ris2=",ris2)
 Siano a = 1.234567890123400e + 15, b = −1.234567890123401e + 15, c = 0.06. Calcolare (a + b) + c, (a + c) + b, a + (b + c). Che cosa si osserva? Ripetere l’esercizio con a = 0.23371258e − 4, b = 0.33678429e + 2, c = −0.33677911e + 2.
 
 ```py
-
 a=1.234567890123400e+15  # o equivalentemente 1.234567890123400*10**15
 b=-1.234567890123401e+15
 c=0.06
@@ -107,12 +106,12 @@ print('a+(b+c)=',ris2)
 ``` 
 
 ## 5
+
 Nell’aritmetica di Python sommare per i = 1, ..., 10 gli addendi xi con x1 = 1 e xi = .1e − 15, per i = 2, ..., 10. Come e' meglio procedere? 
 
 ```py
 import numpy as np
 x=.1e-15;
-    
    
 s=1;
 for i in range(1,10):
@@ -120,8 +119,6 @@ for i in range(1,10):
     
 print('Somma 1+x+x+x+x+x+x+x+x+x:',s)
     
-    
-   
 s1=x;
 for i in range(1,9):
     s1=s1+x
@@ -131,3 +128,40 @@ print('Somma x+x+x+x+x+x+x+x+x+1:',s1)
 
 """ E' consigliabile sommare i numeri in ordine di modulo crescente """ 
 ```
+
+## 6
+[](img/1_6.png)
+
+```py
+"""
+#In aritmetica esatta, y1 e y2 sono equivalenti, ossia
+#y1=sqrt(x^2+1)-x=(sqrt(x^2+1)-x)*(sqrt(x^2+1)+x)/(sqrt(x^2+1)+x)=1/(sqrt(x^2+1)+x)=y2
+
+"""
+
+import math
+
+
+y1=lambda x: math.sqrt(x**2+1)-x
+y2= lambda x: 1/(math.sqrt(x**2+1)+x)
+
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#in questo primo esempio y1 e y2 danno lo stesso risultato perchè 
+#sqrt(x^2+1) non è prossimo a x, e quindi y1 non è affetto da cancellazione numerica
+x=7777;
+
+print("x=",x,"y1(x)=",y1(x),"y2(x)=",y2(x))
+
+err=abs((y1(x)-y2(x))/y2(x))
+print("errore relativo caso 1 ",err)
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+x=77777777
+# Esempio di cancellazione numerica in y1:
+print("x=",x,"y1(x)=",y1(x),"y2(x)=",y2(x))
+
+err=abs((y1(x)-y2(x))/y2(x))
+print("errore relativo caso 2 ",err)
+```
+
