@@ -2,7 +2,6 @@
 
 ## 1
 Verificare numericamente l’approssimazione con rounding to even nell’intervallo [2**52, 2**53]
-_____
 
 ```py
 x=2**52     #  = 4503599627370496
@@ -29,8 +28,8 @@ print("(x+1)+0.5",(x+1)+0.5)
 ```
 
 ## 2
+
 Verificare numericamente che eps = 2**-52, spacing nell’intervallo [1, 2], e' il piu' piccolo x tale che _fl_(1+x) e' diverso da 1 
-____ 
 
 ```py
 p=0   
@@ -49,7 +48,7 @@ print(" risultati per differenza f+s-f=", f1-f,"f+s/2-f=",f2-f)
 ```
 
 ## 3
-> Confrontare i risultati delle operazioni (0.3 − 0.2) − 0.1 e 0.3 − (0.2 + 0.1) e fornire una spiegazione a quanto osservato. Ripetere l’esercizio con le operazioni 0.1 ∗ (0.2 + 0.5) e 0.1 ∗ 0.2 + 0.1 ∗ 0.5 
+Confrontare i risultati delle operazioni (0.3 − 0.2) − 0.1 e 0.3 − (0.2 + 0.1) e fornire una spiegazione a quanto osservato. Ripetere l’esercizio con le operazioni 0.1 ∗ (0.2 + 0.5) e 0.1 ∗ 0.2 + 0.1 ∗ 0.5 
 
 ```py
 
@@ -78,4 +77,33 @@ print("ris2=",ris2)
 ```
 
 ## 4
-> Siano a = 1.234567890123400e + 15, b = −1.234567890123401e + 15, c = 0.06. Calcolare (a + b) + c, (a + c) + b, a + (b + c). Che cosa si osserva? Ripetere l’esercizio con a = 0.23371258e − 4, b = 0.33678429e + 2, c = −0.33677911e + 2.
+Siano a = 1.234567890123400e + 15, b = −1.234567890123401e + 15, c = 0.06. Calcolare (a + b) + c, (a + c) + b, a + (b + c). Che cosa si osserva? Ripetere l’esercizio con a = 0.23371258e − 4, b = 0.33678429e + 2, c = −0.33677911e + 2.
+
+```py
+
+a=1.234567890123400e+15  # o equivalentemente 1.234567890123400*10**15
+b=-1.234567890123401e+15
+c=0.06
+
+
+ris1=(a+b)+c
+print('(a+b)+c=',ris1)
+ris2=(a+c)+b
+print('(a+c)+b=',ris2)
+ris3=a+(b+c)
+print('a+(b+c)=',ris2)
+
+
+# a=0.23371258e-4
+# b=0.33678429e+2
+# c=-0.33677911e+2
+
+# ris1=(a+b)+c
+# print('(a+b)+c=',ris1)
+# ris2=(a+c)+b
+# print('(a+c)+b=',ris2)
+# ris3=a+(b+c)
+# print('a+(b+c)=',ris2)
+
+#Le operazioni macchina perdono la proprieta' associativa
+```
