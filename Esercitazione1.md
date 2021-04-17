@@ -130,7 +130,7 @@ print('Somma x+x+x+x+x+x+x+x+x+1:',s1)
 ```
 
 ## 6
-[](img/1_6.png)
+![immm](/img/1_6.png)
 
 ```py
 """
