@@ -45,7 +45,6 @@ f1=f+s     #numero floating point successivo a f
 f2=f+s/2   #risulta f
 print("f+s=",f1)
 print("f+s/2=",f2)
-
 print(" risultati per differenza f+s-f=", f1-f,"f+s/2-f=",f2-f)
 ```
 
@@ -77,3 +76,6 @@ ris2=x*y+x*z
 print("ris1=",ris1)
 print("ris2=",ris2)
 ```
+
+## 4
+> Siano a = 1.234567890123400e + 15, b = −1.234567890123401e + 15, c = 0.06. Calcolare (a + b) + c, (a + c) + b, a + (b + c). Che cosa si osserva? Ripetere l’esercizio con a = 0.23371258e − 4, b = 0.33678429e + 2, c = −0.33677911e + 2.
