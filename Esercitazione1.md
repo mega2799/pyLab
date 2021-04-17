@@ -1,6 +1,9 @@
 # ES 1
 
-### 1
+## 1
+
+> Verificare numericamente l’approssimazione con rounding to even nell’intervallo [2**52, 2**53] 
+
 _____
 
 ```py
@@ -25,4 +28,8 @@ print("(x+1)+0.5",(x+1)+0.5)
                 #  4503599627370498 
                 # ossia viene arrotondato a (x+2) (per eccesso) 
                 # per soddisfare la regola del rounding to even
-`
+```
+
+## 2
+`Verificare numericamente che eps = 2**-52, spacing nell’intervallo [1, 2], e' il piu' piccolo x tale che _fl_(1+x) e' diverso da 1`
+_____
