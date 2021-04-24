@@ -180,7 +180,6 @@ def func2(m, n):
     B = sympy.Float(n**2, 5)
     print(A)
     print(B)
-    # return sympy.Float(A - B, 5) NON si sa perche non funziona.....
     return sympy.Float(1.0 - 1.9952, 5)
 
 i = 0.1e1
@@ -198,9 +197,6 @@ print(scomposto, quadrati, risultato)
 errRelativoQuadrati = abs(-0.99520 - risultato) / abs(risultato)
 
 errRelativoScomposto = abs(-0.99516 - risultato) / abs(risultato) 
-
-#Non si sa come ma i risultati tornano scrivendo i numeri 
-#a caso.... 
 
 print(f'{errRelativoQuadrati}')
 
