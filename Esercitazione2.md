@@ -4,7 +4,7 @@
 
 Si consideri il sistema di numeri macchina F(10, 2, −3, 3). Calcolare il punto medio del segmento [a, b] = [0.96e − 1, 0.99e − 1] secondo le formule _(a + b)/2_ e _a + (b − a)/2_
 
-```
+```py
 import sympy as sym
 
 import numpy as np
@@ -36,7 +36,7 @@ print(f'(a + (b -a))/2 = {pMedio}')
 
 Soluzione di un sistema lineare
 
-```
+```py
 import numpy as np
 
 import numpy.linalg as npl
@@ -70,7 +70,7 @@ print(f'Vettore soluzione sistema perturbato: {x1}')
 
 Sistema lineare _Ax = b_, trovare vettore soluzione, perturbare la matrice dei coefficenti e calcolare errore relativo su soluzione e confrontarlo con la perturbazione su dati ingresso 
 
-```
+```py
 import numpy as np
 
 import numpy.linalg as npl
@@ -115,7 +115,7 @@ print("Errore relativo sulla soluzione  in percentuale ", erroreRelativoSoluzion
 Assegnato il sistema lineare Ax = b, con A matrice di Hilbert di ordine 4 e b = [1, 1, 1, 1]^T
 trovare il vettore soluzione x, perturbare il vettore dei termini noti, calcolare l’errore relativo sulla soluzione e confrontarlo con la perturbazione relativa sui dati di ingresso
 
-```
+```py
 import numpy as np
 
 import scipy.linalg as spl
@@ -157,7 +157,7 @@ print("Errore relativo sulla soluzione  in percentuale", err_rel_sol*100,"%")
 
 Determinare l’intervallo I dei valori di a, b per cui l’algoritmo _fl(fl(a + b) ∗ fl(a − b))_ risulta numericamente piu' stabile di _fl(fl(a**2)-fl(b**2))
 
-```
+```py
 import numpy as np
 
 import scipy.linalg as spl
@@ -208,9 +208,9 @@ print(f'{errRelativoScomposto}')
 ```
 ## 7
 
-[]!(./img/2_7.png)
+![](/img/2_7.png)
 
-```
+```py
 """
 Calcolo exp(x) con serie di Taylor troncata in accordo a test
 dell'incremento con x campionato in [a,b]
@@ -276,11 +276,11 @@ plt.title('Indice n')
 
 plt.show()
 
-'''
+"""
 --------------------------------------------------------------------------
 come migliorare andamento errore relativo
 --------------------------------------------------------------------------
-'''
+"""
 
 for i in range(numCampioni) :
     if numList[i]>=0:
@@ -304,7 +304,7 @@ plt.show()
 
 Calcolare l’approssimazione della derivata prima di f(x) = sin(x) in x = 1 mediante il rapporto incrementale (f(x + h) − f(x))/h per valori decrescenti di h, confrontandolo con il valore fornito dalla funzione di libreria per f'(x) mediante calcolo dell’errore relativo
 
-```
+```py
 import numpy as np
 
 import math
@@ -332,4 +332,3 @@ plt.yscale("log")
 
 plt.legend(['Errore relativo', 'Incremento'])
 ```
-
