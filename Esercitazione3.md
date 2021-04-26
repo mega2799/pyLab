@@ -109,3 +109,84 @@ print("Secanti it={:d}, ordine di convergenza {:e}".format(itSec,ordine_sec))
 ```
 
 ## 2
+
+```py
+import math
+
+import numpy as np
+
+import sympy as sym
+
+import funzioniZeri
+
+import matplotlib.pyplot as plt
+
+from sympy.utilities.lambdify import lambdify
+
+tolleranzaX = 1e-8
+
+tolleranzaF = 1e-8
+
+a = 3/5*math.pi
+
+b = 37/25*math.pi
+
+x = sym.symbols('x') 
+
+fx = sym.tan(x) - x
+
+deltaF = sym.diff(fx, x, 1) 
+
+#Trasformo in numeriche la funzione e la sua derivata
+
+f = lambdify(x, fx, np)
+
+df = lambdify(x, deltaF, np)
+
+insiemeNum = np.linspace(a, b, 100)
+
+plt.plot(insiemeNum, f(insiemeNum), 'r-')
+
+plt.plot(insiemeNum, 0 * insiemeNum, insiemeNum, f(insiemeNum), 'r-') #asse X 
+
+plt.show()
+
+#Metodo di bisezione
+
+xbis, itbis, xkbis = funzioniZeri.bisez(f, a, b, tolleranzaX)
+
+print('zero bisezione= {:e} con {:d} iterazioni \n'.format(xbis, itbis))
+
+nmax = 200
+
+vettx0 = xkbis[0:4]
+
+for j in range(4):
+    x0 = xkbis[j]
+
+    xNew,itNew,xkNew = funzioniZeri.newton(f, df, x0, tolleranzaX, tolleranzaF, nmax)
+    
+    print('------------------------------' + 'caso J: ' + str(j) + '------------------------------------------------')
+    
+    print('X0= {:e} ,  zero Newton= {:e} con {:d} iterazioni \n'.format(x0, xNew, itNew))
+    
+    xm1=a
+        
+    xSec, itSec, xkSec= funzioniZeri.secanti(f, xm1, x0, tolleranzaX, tolleranzaF, nmax)
+    
+    print('X0= {:e}  zero Secanti= {:e} con {:d} iterazioni \n'.format(x0, xSec, itSec))
+
+    print('------------------------------------------------------------------------------')
+
+"""
+%per j=0,1: 
+% -Newton non converge
+% -secanti non converge alla radice richiesta, ma a 0.002
+%per j=2:
+% -Newton converge alla radice richesta
+% -secanti non converge alla radice richiesta, ma a 0.002
+%per j=3:
+% entrambi convergono alla radice richiesta
+""" 
+```
+
