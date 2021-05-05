@@ -1,5 +1,7 @@
 # Esercitazione 3
 
+![testo](./src/testo_esercitazione_3.pdf)
+
 ## 1
 ```py
 import numpy as np
