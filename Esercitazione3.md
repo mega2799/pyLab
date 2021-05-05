@@ -244,3 +244,204 @@ xNew, itNew, xkNew=funzioniZeri.newton(f, df, x0, tolleranzaX, tolleranzaF, nmax
 
 print('X0= {:e} ,  zero Newton= {:e} con {:d} iterazioni \n'.format(x0, xNew, itNew))
 ```
+
+## 4 
+```py
+import math
+
+import numpy as np
+
+import sympy as sym
+
+import funzioniZeri
+
+import matplotlib.pyplot as plt
+
+from sympy.utilities.lambdify import lambdify
+
+tolleranzaX = 1.e-12
+
+tolleranzaF = 1.e-12
+
+x = sym.symbols('x')
+
+fname = f = x**3 + x**2 -33*x + 63
+
+deltaF = sym.diff(f, x, 1)
+
+#Trasformo in numeriche le funzioni 
+
+f = lambdify(x, f, np)
+
+deltaF = lambdify(x, deltaF, np)
+
+insiemeNum = np.linspace(-10, 10, 100)
+
+plt.plot(insiemeNum, 0 * insiemeNum, insiemeNum, f(insiemeNum), 'r-')
+
+plt.title(fname)
+
+plt.show() #grafico della funzione 
+
+nmax = 500
+
+x0 = 1
+
+xNew, itNew, xkNew = funzioniZeri.newton(f, deltaF, x0, tolleranzaX, tolleranzaF, nmax)
+
+print('X0= {:e} ,  zero Newton= {:e} con {:d} iterazioni \n'.format(x0, xNew, itNew))
+
+ordine_New = funzioniZeri.stima_ordine(xkNew, itNew)
+
+print("Newton it={:d},  ordine di convergenza {:e}".format(itNew, ordine_New))
+
+#Utilizzando il metodo di Newton modificato e ponendo m uguale alla molteplicità della radice si ottiene un metodo con ordine di convergenza 2
+
+m = 2
+
+xNew_m, itNew_m, xkNew_m = funzioniZeri.newton_m(f, deltaF, x0, m, tolleranzaX, tolleranzaF, nmax)
+
+print('X0= {:e} ,  zero Newton Mod= {:e} con {:d} iterazioni \n'.format(x0, xNew_m, itNew_m))
+
+ordine_New_m = funzioniZeri.stima_ordine(xkNew_m, itNew_m)
+
+print("Newton Mod it={:d},  ordine di convergenza {:e}".format(itNew_m, ordine_New_m))
+
+```
+
+## 5
+```py
+import numpy as np
+
+import sympy as sym
+
+import funzioniZeri
+
+import matplotlib.pyplot as plt
+
+from sympy.utilities.lambdify import lambdify
+
+x0 = 2.5
+
+tolleranzaX = 1.8e-8
+
+nmax = 1000
+
+#su virtuale spiega come ci è arrivata....
+c=[1/20, 1/6, 3/10, 2/5]
+
+x = sym.symbols('x')
+
+for i in range(len(c)):
+    gx = x -c[i]*(x**2 -5)
+    deltaGx = sym.diff(gx, x, 1)
+    g = lambdify(x, gx, np)
+    deltaGx = lambdify(x, deltaGx, np)
+    x1, it, xk = funzioniZeri.iterazione(g, x0, tolleranzaX, nmax)
+
+    print('iterazioni= {:d}, soluzione={:e} \n\n'.format(it, x1))
+    deltaGx1 = abs(deltaGx(x1)) # x1 della derivata 
+    xx = np.linspace(1.5, 3)
+
+    plt.plot(xx, xx, 'k-', xx, g(xx))
+    plt.title("abs(g'(alfa))="+str(deltaGx1))
+
+    #Grafico della poligonale  
+    Vx=[]
+    Vy=[]
+    for k in range(it):
+        Vx.append(xk[k])
+        Vy.append(xk[k])
+        Vx.append(xk[k])
+        Vy.append(xk[k+1])
+    
+    Vy[0]=0
+    plt.plot(Vx,Vy,'r',xk,[0]*(it+1),'or-')
+
+  
+    plt.show()
+```
+
+## 6
+
+```py
+import numpy as np
+
+import sympy as sym
+
+import funzioniZeri
+
+import matplotlib.pyplot as plt
+
+from sympy.utilities.lambdify import lambdify
+
+tolleranzaX = 1.e-7
+
+nmax = 1000
+
+f = lambda x: x**3 + 4*x**2 - 10 
+
+insiemeNum = np.linspace(0.0, 1.6, 100)
+
+plt.plot(insiemeNum, 0*insiemeNum, insiemeNum, f(insiemeNum))
+
+plt.title("asse x e la funzione f valutata in un intervallo opportuno")
+
+plt.show()
+
+x0 = 1.5
+
+x = sym.symbols('x')
+
+gx = sym.sqrt(10 / (x + 4))
+
+
+g = lambdify(x, gx, np)
+
+plt.plot(insiemeNum, insiemeNum, insiemeNum, g(insiemeNum))
+
+plt.title('funzione g(x) e y=x')
+
+plt.show()
+
+deltaGx = sym.diff(gx, x, 1)
+
+deltaGx = lambdify(x, gx, np)
+
+plt.plot(insiemeNum, deltaGx(insiemeNum))
+
+plt.title('funzione deltaGx')
+
+plt.show()
+
+x1, it, xk = funzioniZeri.iterazione(g, x0, tolleranzaX, nmax)
+
+print('iterazioni= {:d}, soluzione = {:e} \n\n'.format(it, x1))
+
+ordineIterazioni = funzioniZeri.stima_ordine(xk, it)
+#Essendo il metodo con ordine di convergenza lineare, la costante asintotica di convergenza è data
+#da |g'(alfa)| dove alfa è la radice
+
+C = abs(deltaGx(x1))
+
+print("Iterazione it={:d}, ordine di convergenza {:e}, Costante asintotica di convergenza {:e}".format(it,ordineIterazioni,C)) 
+
+plt.plot(insiemeNum, insiemeNum, 'k-', insiemeNum, g(insiemeNum))
+
+plt.title("abs(g'(alfa))="+str(C))
+
+Vx=[]
+Vy=[]
+for k in range(it):
+    Vx.append(xk[k])
+    Vy.append(xk[k])
+    Vx.append(xk[k])
+    Vy.append(xk[k+1])
+    
+Vy[0]=0
+plt.plot(Vx,Vy,'r',xk,[0]*(it+1),'or-')
+plt.show()
+
+# Si osserva che a parità di ordine di convergenza, più piccola è la costante asintotica di convergenza,
+#maggiore è la velocità del metodo.
+```
