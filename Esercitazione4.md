@@ -1,6 +1,6 @@
 # Esercitazione 4
 
-![testo](./src/testo_esercitazione_4.pdf)
+![testo](./src/testo_esercitazione4.pdf)
 
 ## 1
 
