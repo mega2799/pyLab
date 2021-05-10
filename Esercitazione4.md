@@ -275,7 +275,71 @@ print("(fatt pivot)   Massimo matrice L,  ", max_L_pivot,"Massimo matrice U ", m
 ```
 
 ## 6
+```py
+import numpy as np
 
+import numpy.linalg as npl
+
+import Sistemi_lineari as fSl
+
+import matplotlib.pyplot as plt
+
+n = 100
+
+xe = np.ones((n, 1)) 
+
+norm_xe = npl.norm(xe, 2)
+ 
+v = np.random.rand(n, 1)
+
+v = v/npl.norm(v, 2);
+
+Q = np.eye(n)-2*np.outer(v, v.T) # eye : Return a 2-D array with ones on the diagonal and zeros elsewhere.
+                                # outer: Compute the outer product of two vectors,  output: matrix 
+
+D = np.eye(n)
+
+xesatta = np.ones((n, 1))
+
+erroreRelativoNoPivot = []
+erroreRelativoPivot = []
+indCond = []
+
+for k in range(1, 21):
+   D[n-1, n-1] = 10.0**k
+
+   A = np.dot(Q, D)
+   
+   indCond.append(npl.cond(A, 2))
+
+   b = np.dot(A, xesatta)
+
+   P, L, U, flag,   =  fSl.LU_nopivot(A)
+
+   if flag == 0:
+        x_nopivot, flag = fSl.LUsolve(L, U, P, b)
+   else:
+        print("Sistema non risolubile senza strategia pivotale")
+    
+   erroreRelativoNoPivot.append(np.linalg.norm(x_nopivot-xesatta, 1)/np.linalg.norm(xesatta, 1))
+    
+   P_pivot, Lpivot, Upivot, flagpivot,   =  fSl.LU_pivot(A)
+
+   if flagpivot==0:
+        x_pivot, flag=fSl.LUsolve(Lpivot, Upivot, P_pivot, b)
+   else:
+        print("Sistema non risolubile con strategia pivotale")
+        
+   erroreRelativoPivot.append(np.linalg.norm(x_pivot-xesatta, 1)/np.linalg.norm(xesatta, 1))
+   
+
+
+plt.loglog(indCond, erroreRelativoNoPivot, 'ro-', indCond, erroreRelativoPivot, 'bo-')
+plt.legend(['No pivot', 'Pivot'])
+plt.xlabel('Indice di condizionamento')
+plt.ylabel('Errore relativo sulla soluzione')
+plt.show()
+```
 
 ## 7
 
