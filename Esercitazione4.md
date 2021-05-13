@@ -78,7 +78,7 @@ plt.legend(['No pivot', 'Pivot', 'Solve'])
 
 plt.show()
 
-curva=np.arange(numInizio,numFine)**3
+curva = np.arange(numInizio,numFine)**3 #np.arange: Return evenly spaced values within a given interval
 
 plt.semilogy(range(numInizio,numFine), tempoNoPivot,'r-',
              range(numInizio,numFine), tempoPivot,'g-', 
@@ -93,44 +93,49 @@ plt.show()
 ## 2
 
 ```py
-# -*- coding: utf-8 -*-
 import numpy as np
 
 import Sistemi_lineari as fSl
 
 import scipy.linalg as spl
 
-scelta=input("Scegli Matrice ")
+scelta = input("Scegli Matrice ")
 
 scelta_Matrice = {
-        '1': [np.array([[1,2,3],[0,0,1],[1,3,5]],dtype=float),np.array([[6],[1],[9]],dtype=float)],
+        '1': [np.array([[1,2,3],[0,0,1],[1,3,5]],dtype=float),np.array([[6],[1],[9]],dtype=float)], # dtype=float assicura che gli elementi della matrice siano float per non perdere dati con il troncamento ad interi 
         '2':[np.array([[1, 1, 0, 3], [2, 1, -1, 1],[-1, 2, 3, -1],[ 3, -1, -1 ,2]],dtype=float),np.array([[5],[3],[3],[3]],dtype=float)]
-        # la seconda matrice non ha rango massimo => det = 0 (?) 
+        # la seconda matrice non ha rango massimo => det = 0
 }
 
 
-A,b=scelta_Matrice.get(scelta) 
+A, b = scelta_Matrice.get(scelta) 
 
-m,n=A.shape 
+m, n = A.shape 
 
-xesatta=np.ones((n,1))
+xesatta = np.ones((n, 1)) # Return a new array of given shape and type, filled with ones
 
-P,L,U,flag, = fSl.LU_nopivot(A)
+P, L, U, flag,  = fSl.LU_nopivot(A)
 
 if flag==0:
-    x_nopivot,flag=fSl.LUsolve(L,U,P,b)
-    print("soluzione con strategia pivotale \n",x_nopivot)
+    x_nopivot, flag =fSl.LUsolve(L, U, P, b)
+    print("soluzione con strategia pivotale \n", x_nopivot)
 else:
     print("Sistema non risolubile senza strategia pivotale")
     
     
-P_pivot,Lpivot,Upivot,flagpivot, = fSl.LU_pivot(A)
+P_pivot, Lpivot, Upivot, flagpivot,   = fSl.LU_pivot(A)
 
 if flagpivot==0:
-    x_pivot,flag=fSl.LUsolve(Lpivot,Upivot,P_pivot,b)
-    print("soluzione con strategia pivotale \n",x_pivot)
+    x_pivot, flag =fSl.LUsolve(Lpivot, Upivot, P_pivot, b)
+    print("soluzione con strategia pivotale \n", x_pivot)
 else:
     print("Sistema non risolubile con strategia pivotale")
+
+"""
+ipotesi metodo di Guass senza pivoting:
+	matrici che abbiano rango massimo => determinante diverso da zero, tutte le matrici di testa con det != 0
+Percio' il metodo di fattorizzazione senza pivoting fallisce, le matrici 1 e 2 non hanno rango massimo 
+"""
 ```
 
 ## 3
@@ -145,19 +150,19 @@ import scipy.linalg as spl
 scelta = input("Scegli Matrice ")
 
 scelta_Matrice = {
-        '1':np.array([[3,5,7],[2,3,4],[5,9,11]], dtype=float), # dtype serve per obbligare a float i dati, altrimenti in int si perderebbero i numeri 
-        '2':np.array([[1, 2, 3, 4], [2, -4, 6, 8],[-1, -2, -3, -1],[ 5, 7, 0 ,1]], dtype=float)
+        '1':np.array([[3, 5, 7], [2, 3, 4], [5, 9, 11]],  dtype=float),  # dtype serve per obbligare a float i dati,  altrimenti in int si perderebbero i numeri 
+        '2':np.array([[1,  2,  3,  4],  [2,  -4,  6,  8], [-1,  -2,  -3,  -1], [ 5,  7,  0 , 1]],  dtype=float)
 }
 
 A = scelta_Matrice.get(scelta) 
 
-m, n = A.shape
+m, n = A.shape # Return the shape of an array/matrix
 
-B = np.eye(m)
+B = np.eye(m) # Return a 2-D array with ones on the diagonal and zeros elsewhere
 
-#Calcolo l'inversa risolvendo n sistemi lineari ciascuno dei quali ha la stess
-#matrice e termine noto uguale all-iesima colonna della matrice identita'
-X = fSl.solve_nsis(A,B)
+#Calcolo l'inversa risolvendo n sistemi lineari ciascuno dei quali ha la stessa
+#matrice e termine noto uguale all-iesima colonna della matrice identita' B 
+X = fSl.solve_nsis(A, B)
 
 """
 Sostituendo in solve_nsis la funzione con e senza pivot noto che: 
@@ -165,11 +170,11 @@ Con pivot tutto torna confrontando con scipy.linalg
 Senza pivot la seconda matrice non ha tutti i minori principali di rango massimo e l'algoritmto fallisce 
 """
 
-print('Inversa risolvendo n sistemi lineari \n', X)
+print('Inversa risolvendo n sistemi lineari \n',  X)
 
 Xpy = spl.inv(A)
 
-print('Inversa usando scipy.linalg, \n', Xpy)
+print('Inversa usando scipy.linalg,  \n',  Xpy)
 ```
 
 ## 4
@@ -244,7 +249,7 @@ scelta_Matrice = {
 
 A, b, xesatta = scelta_Matrice.get(scelta) 
 
-m, n = A.shape #Prende le dimensioni della matrice 
+m, n = A.shape # Return the shape of an array/matrix
 
 xesatta = np.ones((n,1)) # Return a new array of given shape and type, filled with ones
 
