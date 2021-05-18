@@ -246,4 +246,173 @@ plt.show()
 
 ### 4
 
+```py
+import numpy as np
+
+from funzioni_Interpolazione_Polinomiale import InterpL
+
+import matplotlib.pyplot as plt
+
+import math
+
+#Interpolazioni polinomi equidistanti e/o Chebishev, con relativi errori
+
+def zeri_Cheb(a,b,n):
+    t1 = (a+b)/2
+    t2 = (b-a)/2
+    x = np.zeros((n+1,)) # Array di zeri
+    for k in range(n+1):
+        x[k] = t1+t2*np.cos(((2*k+1)/(2*(n+1))*math.pi))
+    return x
+                          
+sceltaf = input("Scegli funzione\n")
+ 
+scelta_funzione = {
+        '1': [lambda x: np.sin(x) - 2*np.sin(2*x), -math.pi, math.pi],
+        '2': [lambda x: np.sinh(x), -2,2],
+        '3': [lambda x: np.abs(x), -1,1],
+        '4': [lambda x: 1/(1+x**2), -5,5] #Funzione di runge
+}
+
+f,a,b = scelta_funzione.get(sceltaf)
+
+sceltap= input("Scegli tipo punti : 1(equidistanti) 2(Chebishev)\n ")
+
+n = int(input('Grado del polinomio\n'))
+
+scelta_punti = {
+        '1': np.linspace(a,b,n+1),
+        '2': zeri_Cheb(a,b,n)
+        }
+
+x=scelta_punti.get(sceltap)
+
+# punti di valutazione per l'interpolante
+xx = np.linspace(a,b,200)
+
+y = f(x)
+
+pol=InterpL(x,y,xx)
+
+plt.plot(xx,pol,'b--',x,y,'r*',xx,f(xx),'m-');
+plt.legend(['interpolante di Lagrange','punti di interpolazione','Funzione']);
+plt.show()
+
+r=np.abs(f(xx)-pol)
+norm_inf_r=np.linalg.norm(r,np.inf)
+
+print("Norma infinito di r ",norm_inf_r)
+plt.plot(xx,r,'m-');
+plt.legend(['Errore']);
+plt.show()
+
+"""
+errore nullo nei punti di interpolazione
+fenomeno di runge
+all' aumentare del grado la funzione di interpolazione assomiglia sempre di piu
+alla funzione iniziale ma non in tutte le funzioni
+??????
+"""
+```
+
+### 5
+
+```py
+import numpy as np
+
+from funzioni_Interpolazione_Polinomiale import plagr
+
+import math
+
+# La costante di lebesgue serve a misurare il condizionamento del problema 
+def zeri_Cheb(a,b,n):
+    t1 = (a+b)/2
+    t2 = (b-a)/2
+    x = np.zeros((n+1,))
+    for k in range(n+1):
+        x[k] = t1+t2*np.cos(((2*k+1)/(2*(n+1))*math.pi))
+
+    return x
+
+# Calcolo della costante di lebesgue in [-1,1]
+xx = np.linspace(-1,1,200)
+LLe = np.zeros((4,1))
+LLc = np.zeros((4,1))
+
+i = 0
+
+for n in range(5,25,5):
+    # Nodi equispaziati
+    xe = np.linspace(-1,1,n+1) # Nodi = grado + 1 
+    # Nodi di Chebyshev 
+    xc = zeri_Cheb(-1,1,n)
+
+    Le = np.zeros((200,1))
+    Lc = np.zeros((200,1))
+
+    for l in range (n+1):        
+        pe = plagr(xe,l)
+        Le = Le+np.abs(np.polyval(pe,xx))
+        pc = plagr(xc,l)
+        Lc = Lc+np.abs(np.polyval(pc,xx))
+    
+    LLe[i] = np.max(Le)
+    LLc[i] = np.max(Lc)
+    i = i+1
+
+print('Costante di Lebesgue con nodi equispaziati al variare di n: \n ',LLe)
+ 
+print('Costante di Lebesgue con nodi di Chebyshev al variare di n: \n',LLc)
+ 
+```
+
+### 6
+
+```py
+import numpy as np
+
+import numpy.linalg as npl
+
+from funzioni_Interpolazione_Polinomiale import InterpL
+
+import math
+
+import matplotlib.pyplot as plt
+
+f= lambda x: np.sin(2*math.pi*x)
+x = np.linspace(-1,1,22) # 22 punti 
+y1 = f(x) 
+
+y2 = y1.copy()
+y2 = y2 + 0.0002*np.random.random(22,) # Pertubazione
+
+xx=np.linspace(-1,1,300)
+pol1=InterpL(x,y1,xx)
+pol2=InterpL(x,y2,xx)
+
+
+#Funzione "normale"
+plt.plot(xx,pol1,'b--',x,y1,'r*',xx,f(xx),'m-');
+plt.legend(['interpolante di Lagrange','punti di interpolazione','Funzione']);
+plt.show()
+
+#Funzione perturbata
+plt.plot(xx,pol2,'b--',x,y2,'r*',xx,f(xx),'m-');
+plt.legend(['interpolante di Lagrange','punti di interpolazione perturbati','Funzione']);
+plt.show()
+
+#errore relativo sui dati
+errrel_dati=npl.norm(y2-y1,np.inf)/npl.norm(y1,np.inf)
+
+#errore relativo sui risultati
+errrel_risultati=npl.norm(pol2-pol1,np.inf)/npl.norm(pol1,np.inf)
+
+print("Errore relativo sui dati ",errrel_dati)
+print("Errore relativo sui risultati ",errrel_risultati)
+
+"""
+l'errore sui risultati è amplificato rispetto a quella piccolissima perturbazione 
+sui dati
+"""
+```
 
