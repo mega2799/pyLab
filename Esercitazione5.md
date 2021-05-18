@@ -143,3 +143,107 @@ il metodoQR produce risultati esatti nonostante i dati sono
 perturbati perche' la matrice e'ben posta
 """
 ```
+
+## Interpolazione polinomiale nella forma di Lagrange 
+
+
+### 1
+```py
+import numpy as np
+
+from funzioni_Interpolazione_Polinomiale import plagr
+
+import matplotlib.pyplot as plt
+
+scelta = input('Scegli nodi\n')
+
+scelta_nodi={
+    '1': np.arange(0,1.1,1/4), # L'intervallo da 0 a 1, di passo .25 > [0, .25, .5, .75, 1] 
+    '2': np.array([-1, -0.7, 0.5, 1]) 
+    } 
+
+xnodi = scelta_nodi.get(scelta) 
+
+n = xnodi.size
+
+xx = np.linspace(xnodi[0],xnodi[n-1],200);
+
+for k in range(n):
+    p=plagr(xnodi,k) #Calcola il k-esimo polinomio di lagrange 
+    L=np.polyval(p,xx) #valuta il polinomio in ogni punto 
+    plt.plot(xnodi,np.zeros((n,)),'ro') # Nodi con pallini
+    plt.plot(xnodi[k],1,'c*') 
+    plt.plot(xx,L,'b-');
+    plt.show()
+
+"""
+verifica che polinomio ha askjbdabjasdkjb nfaskjbafjknasdfk 
+rappresentazione grafica polinomio di lagrange
+                        -Lazzaro
+""" 
+```
+
+### 2
+
+```py
+import numpy as np
+
+import math 
+
+from funzioni_Interpolazione_Polinomiale import InterpL
+
+import matplotlib.pyplot as plt
+
+#nodi del problema di interpolazione 
+x=np.arange(0,2*math.pi+0.1,math.pi/2); # + 0.1 perche esclude l'ultimo putno altrimenti
+y1=np.sin(x)
+xx=np.arange(0,2*math.pi+0.1,math.pi/40);
+yy1=InterpL(x,y1,xx); 
+
+
+plt.plot(xx,yy1,'b--',x,y1,'*',xx,np.sin(xx),'g-');
+plt.legend(['interpolante di Lagrange','punti di interpolazione','y=sin(x)']);
+plt.show()
+
+y2=np.cos(x);
+yy2=InterpL(x,y2,xx);
+plt.plot(xx,yy2,'r--',x,y2,'*',xx,np.cos(xx),'c-');
+plt.legend(['interpolante di Lagrange','punti di interpolazione','y=cos(x)']);
+plt.show()
+
+"""
+visualizzo i polinomi che interpolano le funzioni sin e cos 
+di lagrange rispetto alle reali funzioni
+"""
+```
+
+### 3 
+
+```py
+import numpy as np
+
+from funzioni_Interpolazione_Polinomiale import InterpL
+
+import matplotlib.pyplot as plt
+
+# Nodi del problema di interpolazione 
+T = np.array([-55, -45, -35, -25, -15, -5, 5, 15, 25, 35, 45, 55, 65])
+L = np.array([3.7, 3.7,3.52,3.27, 3.2, 3.15, 3.15, 3.25, 3.47, 3.52, 3.65, 3.67, 3.52])
+
+# Punti di valutazione per l'interpolante
+xx = np.linspace(np.min(T),np.max(T),200) # Scelta intervallo per interpolazione
+pol = InterpL(T,L,xx) # Calcola  il  polinomio  interpolante  in  forma  di Lagrange
+
+# Variazione di temperatura alle latitudini L= +42, -42 
+pol42 = InterpL(T,L,np.array([42]))
+pol_42 = InterpL(T,L,np.array([-42]))
+
+plt.plot(xx,pol,'b--',T,L,'r*',42,pol42,'og',-42,pol_42,'og');
+plt.legend(['interpolante di Lagrange','punti di interpolazione','stima 1', 'stima2']);
+plt.show()
+
+```
+
+### 4
+
+
