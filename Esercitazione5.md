@@ -1,5 +1,7 @@
 # Esercitazione 5
 
+![testo](./src/testo_esercitazione5.pdf)
+
 ## 1
 
 ```py
