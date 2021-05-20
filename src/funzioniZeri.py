@@ -2,6 +2,7 @@
 Funzioni per il calcolo degli zeri di funzioni non lineari
 """
 import numpy as np
+
 import math
 
 '''
@@ -17,11 +18,20 @@ def sign(x): return math.copysign(1, x)
 
 #Bisezione
 def bisez(fname,a,b,tol):
-    eps=np.spacing(1)      # np.spacing(x) Restituisce la distanza tra x e il numero adiacente più vicino.
-                           # np.spacing(1)  restituisce quindi l' eps di macchina.
-    fa=fname(a)
-    fb=fname(b)
-    if sign(fa)==sign(fb):
+    """
+    args:- funzione lambdifyied 
+        - estremo sinistro a
+        - estremo destro b
+        - tolleranza
+    numero massimo di interazioni: int(math.ceil(math.log((b-a)/tol)/math.log(2)))
+    cond arresto: it<maxit and abs(b-a)>=tol+eps*max(abs(a),abs(b))
+    c = a + (b-a)*0.5   #formula stabile per il calcolo del punto medio dell'intervallo
+    """
+    eps = np.spacing(1)      # np.spacing(x)  Restituisce la distanza tra x e il numero adiacente più vicino.
+                           # np.spacing(1)  Restituisce quindi l' eps di macchina.
+    fa = fname(a)
+    fb = fname(b)
+    if sign(fa) == sign(fb):
        print('intervallo non corretto --Metodo non applicabile')
        return [],0,[]
     else:
@@ -30,7 +40,7 @@ def bisez(fname,a,b,tol):
         xk=[]
         it=0
         while it<maxit and  abs(b-a)>=tol+eps*max(abs(a),abs(b)):
-            c=a+(b-a)*0.5   #formula stabile per il calcolo del punto medio dell'intervallo
+            c = a + (b-a)*0.5   #formula stabile per il calcolo del punto medio dell'intervallo
             xk.append(c) 
             it+=1
             fxk=fname(c)
@@ -38,53 +48,56 @@ def bisez(fname,a,b,tol):
                 break
             elif sign(fxk)==sign(fa):
                 a=c
-                fa=fxk
+                #fa=fxk questa roba sbatte un cazzo ! 
             elif sign(fxk)==sign(fb):
                 b=c
-                fb=fxk
+                #fb=fxk questa roba sbatte un cazzo ! 
             
-            
-        
         x=c
-        
     return x,it,xk
 
 
 
 def regula_falsi(fname,a,b,tol,nmax):
-#Regula Falsi       
-        eps=np.spacing(1)
-        xk=[]
-        fa=fname(a)
-        fb=fname(b)
-        if sign(fa)==sign(fb):
-          print('intervallo non corretto --Metodo non applicabile')
-          return [],0,[]
-        else:
-            it=0
-            fxk=fname(a)
-            while it<nmax and  abs(b-a)>=tol+eps*max(abs(a),abs(b)) and abs(fxk)>=tol :
-                x1=a-fa*(b-a)/(fb-fa);
-                xk.append(x1)
-                it+=1
-                fxk=fname(x1);
-                if fxk==0:
-                    break
-                elif sign(fxk)==sign(fa):
-                    a=x1;
-                    fa=fxk;
-                elif sign(fxk)==sign(fb):
-                    b=x1;
-                    fb=fxk;
+    """
+    args:
+        - funzione lambdifyied 
+        - estremo sinistro a
+        - estremo destro b
+        - tolleranza
+        - numero max di iterazioni 
+    condzioni di arresto con fxk iniziale = fname(a):
+        it<nmax and  abs(b-a)>=tol+eps*max(abs(a),abs(b)) and abs(fxk)>=tol
+    """
+    eps=np.spacing(1)
+    xk=[]
+    fa=fname(a)
+    fb=fname(b)
+    if sign(fa)==sign(fb):
+      print('intervallo non corretto --Metodo non applicabile')
+      return [],0,[]
+    else:
+        it=0
+        fxk=fname(a)
+        while it<nmax and  abs(b-a)>=tol+eps*max(abs(a),abs(b)) and abs(fxk)>=tol :
+            x1=a-fa*(b-a)/(fb-fa);
+            xk.append(x1)
+            it+=1
+            fxk=fname(x1);
+            if fxk==0:
+                break
+            elif sign(fxk)==sign(fa):
+                a=x1;
+                fa=fxk;
+            elif sign(fxk)==sign(fb):
+                b=x1;
+                fb=fxk;
                 
-                
-            if it==nmax :
-                print('Regula Falsi: Raggiunto numero max di iterazioni')
-                
-           
-            
-        return x1,it,xk
-    
+        if it==nmax :
+            print('Regula Falsi: Raggiunto numero max di iterazioni')
+        
+    return x1,it,xk
+
 
 def corde(fname,fpname,x0,tolx,tolf,nmax):
  #Corde
