@@ -197,20 +197,19 @@ from funzioni_Interpolazione_Polinomiale import InterpL
 import matplotlib.pyplot as plt
 
 #nodi del problema di interpolazione 
-x=np.arange(0,2*math.pi+0.1,math.pi/2); # + 0.1 perche esclude l'ultimo putno altrimenti
-y1=np.sin(x)
-xx=np.arange(0,2*math.pi+0.1,math.pi/40);
-yy1=InterpL(x,y1,xx); 
+x = np.arange(0, 2*math.pi+0.1, math.pi/2) # + 0.1 perche esclude l'ultimo putno altrimenti
+y1 = np.sin(x)
+xx = np.arange(0, 2*math.pi+0.1, math.pi/40) # Punti in cui calcolero' il polinomi di Lagrange 
+yy1 = InterpL(x, y1, xx) 
 
-
-plt.plot(xx,yy1,'b--',x,y1,'*',xx,np.sin(xx),'g-');
-plt.legend(['interpolante di Lagrange','punti di interpolazione','y=sin(x)']);
+plt.plot(xx, yy1, 'b--', x, y1, '*', xx, np.sin(xx), 'g-')
+plt.legend(['interpolante di Lagrange', 'punti di interpolazione', 'y = sin(x)'])
 plt.show()
 
-y2=np.cos(x);
-yy2=InterpL(x,y2,xx);
-plt.plot(xx,yy2,'r--',x,y2,'*',xx,np.cos(xx),'c-');
-plt.legend(['interpolante di Lagrange','punti di interpolazione','y=cos(x)']);
+y2 = np.cos(x)
+yy2 = InterpL(x, y2, xx)
+plt.plot(xx, yy2, 'r--', x, y2, '*', xx, np.cos(xx), 'c-')
+plt.legend(['interpolante di Lagrange', 'punti di interpolazione', 'y=cos(x)'])
 plt.show()
 
 """
@@ -236,12 +235,12 @@ L = np.array([3.7, 3.7,3.52,3.27, 3.2, 3.15, 3.15, 3.25, 3.47, 3.52, 3.65, 3.67,
 xx = np.linspace(np.min(T),np.max(T),200) # Scelta intervallo per interpolazione
 pol = InterpL(T,L,xx) # Calcola  il  polinomio  interpolante  in  forma  di Lagrange
 
-# Variazione di temperatura alle latitudini L= +42, -42 
+# Variazione di temperatura alle latitudini L = +42, -42 
 pol42 = InterpL(T,L,np.array([42]))
 pol_42 = InterpL(T,L,np.array([-42]))
 
-plt.plot(xx,pol,'b--',T,L,'r*',42,pol42,'og',-42,pol_42,'og');
-plt.legend(['interpolante di Lagrange','punti di interpolazione','stima 1', 'stima2']);
+plt.plot(xx, pol, 'b--', T, L, 'r*', 42, pol42, 'og', -42, pol_42, 'og')
+plt.legend(['interpolante di Lagrange', 'punti di interpolazione', 'stima 1', 'stima2'])
 plt.show()
 
 ```
