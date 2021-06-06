@@ -61,3 +61,56 @@ LU = np.dot(L,U)
 print("det B ",np.linalg.det(LU))
 
 print("det B^-1 " ,1/np.linalg.det(LU))
+
+###################################################################### 
+
+from src.funzioni_Interpolazione_Polinomiale import *
+
+import matplotlib.pyplot as plt
+
+from src.Funzioni_integrazione import simptoll
+f = lambda x : x - np.sqrt(x-1) 
+
+# Estremi integrazione
+a = 1
+
+b = 3
+
+n = 3 # Grado = 3 
+
+# Costruisco il polinomio
+x = np.linspace(a, b, n + 1)
+
+y = f(x)
+
+z = np.linspace(a, b, 100) 
+
+# Polinomio interpolatore di Lagrange
+pol = InterpL(x, y, z)
+
+plt.plot(z, f(z), z, pol, x, y, 'o')
+
+plt.legend(['Funzione da interpolare','Polinomio interpolatore', 'Nodi di interpolazione'])
+
+plt.show()
+
+# Calcolare con Simpson i valori approssimati di 2 inntegrali 
+
+tol = 1e-5
+
+it1, N1 = simptoll(f, a, b, tol)
+
+it2, N2 = simptoll(pol, a, b, tol)
+
+
+#I1 ed I2 sono i valori esatti dei due integrali 
+I1 = 2.114381916835873
+I2 = 2.168048769926493 
+
+errore1 = abs(it1 - IT1)
+
+errore2 = abs(it2 - IT2)
+
+print('Errore integrale funzione f(x)', err1,' Numero di suddivisioni ', N1)
+
+print('Errore integrale del polinomio interpolatore', err2, 'Numero di suddivisioni ',N2)
