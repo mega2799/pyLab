@@ -10,7 +10,24 @@ B = np.array([[5, -2, 2, 0], [-2, 5, 0, 1], [2, 0, 5, 1], [0, 1, 1, 5]],dtype=fl
 
 # Stabilire se A B ammettono fattorizzazione LU senza pivoting
 
-#risp: Matrici quadrate e elementi sulla diagonale tutti diversi da 0 della matrice triangolare
+#risp: Se i minori principali della matrice hanno rando massimo allora la fattorizzazione LU si puo applcare
+
+deter = []
+
+for i in range(0,4):
+    deter.append(np.linalg.det(A[:i+1, :i+1]))
+
+if np.all(deter!=0):
+    print("Matrice A ammette fattorizzazione LU")
+    
+deter = []
+
+for i in range(0,4):
+    deter.append(np.linalg.det(B[:i+1, :i+1]))
+
+if np.all(deter != 0):
+    print("Matrice B ammette fattorizzazione LU")
+ 
 
 def LUsenzaPivoting(M):
     m,n = M.shape
@@ -68,7 +85,27 @@ from src.funzioni_Interpolazione_Polinomiale import *
 
 import matplotlib.pyplot as plt
 
-from src.Funzioni_integrazione import simptoll
+def simptoll(fname, a, b, tol):
+    Nmax = 2048
+    err = 1
+    N = 1
+    In = simpcomp(fname, a, b, N)
+    while N <= Nmax and err > tol:
+        N = 2 * N
+        I2n = simpcomp(fname, a, b, N)
+        err = abs(In - I2n) / 15
+        In = I2n
+    if N > Nmax:
+        return 0, []
+    return In, N
+
+def simpcomp(fname, a, b, N):
+    h = (b-a)/2*N
+    nodi = np.arange(a, b+h, h)
+    f = fname(nodi)
+    i = (f[0] + 2*np.sum(f[2:2*n:2]) + 4*np.sum(f[1:2*n:2]) +f[2*n]) * (h/3)
+    return i
+
 f = lambda x : x - np.sqrt(x-1) 
 
 # Estremi integrazione
