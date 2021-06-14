@@ -13,6 +13,8 @@ for i in range(0,n):
 
 Per trovare il punto fisso di una funzione si utilizza l'algoritmo delle iterazioni, la convergenza locale è garantita dal teorema in cui ho che | g'(x) | < 1 o in un altro modo che g'(x) sia compreso tra (-1,1)
 
+Avere un solo punto fisso vuol dire che g(x) intersca la bisettrice soltanto una volta
+
 ```py
 plt.plot(xx ,dg(xx))
 #Disegno la retta y=1
