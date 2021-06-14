@@ -23,3 +23,14 @@ plt.plot([-1,1],[1,1],'--')
 plt.plot([-1,1],[-1,-1],'--')
 ```
 
+## Errore relativo
+
+```py
+iccs = np.zeros((nval,), dtype=float) # Valore atteso
+
+ipsilon = np.zeros((nval,), dtype=float) # Valore ottenuto
+
+erroreRelativo = np.abs(iccs - ipsilon) / np.abs(icc) 
+```
+
+
