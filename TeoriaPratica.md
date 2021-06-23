@@ -33,4 +33,18 @@ ipsilon = np.zeros((nval,), dtype=float) # Valore ottenuto
 erroreRelativo = np.abs(iccs - ipsilon) / np.abs(icc) 
 ```
 
+## Metodo iterativo converge qudraticamente ---> Newton
+
+## Risolvere equazione
+
+```py
+from sympy.utilities.lambdify import lambdify
+from scipy.optimize import fsolve
+
+x=sym.symbols('x')
+fx= x-1/3*sym.sqrt(30*x-25)
+x0=4
+f=lambdify(x,fx,np)
+alfa=fsolve(f,x0)
+```
 
