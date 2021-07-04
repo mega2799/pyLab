@@ -48,3 +48,14 @@ f=lambdify(x,fx,np)
 alfa=fsolve(f,x0)
 ```
 
+## Calcolo dell'inversa matrice B
+
+risolvendo n sistemi lineari aventi come matrice dei coefficenti la matrice B e termine noto le n colonne della matrice identità
+
+```py
+P,L,U,flag=LU_nopivot(B)
+
+if flag==0:
+   X= solve_nsis_f(P,L,U,I)
+```
+
