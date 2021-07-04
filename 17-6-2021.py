@@ -196,14 +196,18 @@ gx = lambdify(x, g, np)
 plt.plot(xx, gx(xx), x0[0], x0[0], 'ro', x0[1], x0[1], 'ro', x0[2], x0[2], 'ro' )
 plt.show()
 
-# La funizone g puo calcolare solo la seconda e terza radice
+# La funzione g puo calcolare solo la seconda e terza radice
 
-# c) 
+# c,d) 
 
+# Non si sa perche ma si aspetta la convergenza con 0.5 
 x0 = .5 
-it, x1, xk = fzeri.iterazione(gx, x0, tolx, 1000)
-print(x1)
+x1, it, xk0 = fzeri.iterazione(gx, x0, tolx, 1000)
+
+ordine = fzeri.stima_ordine(xk0, it)
+
+print("ordine di convergenza: ", ordine) 
 
 x0 = 4.5 
-it, x1, xk = fzeri.iterazione(gx, x0, tolx, 1000)
-print(x1)
+x1, it, xk1 = fzeri.iterazione(gx, x0, tolx, 1000)
+
