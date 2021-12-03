@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.Sistemi_lineari import LU_nopivot
+from res.Sistemi_lineari import LU_nopivot
 
 A = np.array([[10, -4, 4, 0], [-4, 10, 0, 2], [4, 0, 10, 2], [0, 2, 2, 0]], dtype=float)
 
@@ -81,7 +81,7 @@ print("det B^-1 " ,1/np.linalg.det(LU))
 
 ###################################################################### 
 
-from src.funzioni_Interpolazione_Polinomiale import *
+from res.funzioni_Interpolazione_Polinomiale import *
 
 import matplotlib.pyplot as plt
 

@@ -1,6 +1,6 @@
 import numpy as np
 
-import src.Sistemi_lineari as lin
+import res.Sistemi_lineari as lin
 
 B = np.array([[.98, .02, 0, .04, 0], [.08, .93, .08, -.07, -.03], [.04, .01, .97, -.07, -.04], [.02, -.03, 0, 1.03, 0], [.07, .04, 0, -.08, 1.01]])
 
@@ -156,7 +156,7 @@ from sympy.utilities.lambdify import lambdify
 
 from scipy.optimize import fsolve
 
-import src.funzioniZeri as fzeri
+import res.funzioniZeri as fzeri
 
 x = sym.symbols('x')
 

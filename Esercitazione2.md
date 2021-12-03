@@ -176,11 +176,9 @@ def func1(a, b):
 
 def func2(m, n):
     #(a^2 - b^2)
-    A = sympy.Float(m**2, 1)
+    A = sympy.Float(m**2, 5)
     B = sympy.Float(n**2, 5)
-    print(A)
-    print(B)
-    return sympy.Float(1.0 - 1.9952, 5)
+    return sympy.Float(A - B, 4)
 
 i = 0.1e1
 

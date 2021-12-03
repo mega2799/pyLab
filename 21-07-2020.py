@@ -1,6 +1,5 @@
 import numpy as np
 import sympy as sym
-import src.funzioniZeri 
 import matplotlib.pyplot as plt
 from sympy.utilities.lambdify import lambdify
 from scipy.optimize import fsolve

@@ -1,5 +1,17 @@
 # TeoriaPratica 
 
+### norma 
+```py
+A = np.array([ [3, 5], [3.01, 5.01] ]) # matrice dei coefficenti
+
+npl.norm(A, np.inf)
+```
+
+### numero di condizionamento K 
+```py
+numeroDiCondizionamento = npl.cond(A, np.inf)
+``` 
+
 ## Teorema Fattorizzazione LU
 
 Una matrice A ammette fattorizzazione LU <=> le matrici minori principali hanno rango massimo, cioe' determinante != 0
