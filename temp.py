@@ -1,41 +1,50 @@
+import math
+
 import numpy as np
 
-import scipy.linalg as spl
+import sympy as sym
 
-import numpy.linalg as npl
+import res.funzioniZeri as funzioniZeri
 
-import sympy
+import matplotlib.pyplot as plt
 
-# F(10, 5, L, U)
+from sympy.utilities.lambdify import lambdify
 
-def func1(a, b):
-    # (a - b) * (a + b)
-    AmenoB = sympy.Float(a + b, 5)
-    ApiuB = sympy.Float(a - b, 5)
-    return sympy.Float(AmenoB * ApiuB, 5)
+tolleranzaX = 1e-6
 
-def func2(m, n):
-    #(a^2 - b^2)
-    A = sympy.Float(m**2, 5)
-    B = sympy.Float(n**2, 5)
-    return sympy.Float(A - B, 4)
+tolleranzaF = 1e-5
 
-i = 0.1e1
+x = sym.symbols('x') 
 
-j = 0.14125e1
+fx = sym.atan(x) 
 
-scomposto = func1(i, j)
+deltaF = sym.diff(fx, x, 1) 
 
-quadrati = func2(i, j)
+#Trasformo in numeriche la funzione e la sua derivata
 
-risultato = i**2 - j**2
+f = lambdify(x, fx, np)
 
-print(scomposto, quadrati, risultato)
+df = lambdify(x, deltaF, np)
 
-errRelativoQuadrati = abs(-0.99520 - risultato) / abs(risultato)
+insiemeNum = np.linspace(-10, 10, 100)
 
-errRelativoScomposto = abs(-0.99516 - risultato) / abs(risultato) 
+plt.plot(insiemeNum, 0 * insiemeNum, insiemeNum, f(insiemeNum), 'r-') #asse X 
 
-print(f'{errRelativoQuadrati}')
+plt.show()
 
-print(f'{errRelativoScomposto}')
+nmax = 500
+
+
+#Considero come iterato iniziale per Newton: x0=1.2: il metodo converge
+x0=1.2
+
+xNew, itNew, xkNew=funzioniZeri.newton(f, df, x0, tolleranzaX, tolleranzaF, nmax)
+
+print('X0= {:e} ,  zero Newton= {:e} con {:d} iterazioni \n'.format(x0, xNew, itNew))
+
+#Considero come iterato iniziale per Newton: x0=1.4: il metodo non converge  
+x0=1.4
+
+xNew, itNew, xkNew=funzioniZeri.newton(f, df, x0, tolleranzaX, tolleranzaF, nmax)
+
+print('X0= {:e} ,  zero Newton= {:e} con {:d} iterazioni \n'.format(x0, xNew, itNew))

@@ -2,7 +2,7 @@
 
 ![testo](./res/testo_esercitazione_3.pdf)
 
-## 1S
+## 1
 ```py
 import numpy as np
 
@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 from sympy.utilities.lambdify import lambdify
 
-import funzioniZeri
+import res.funzioniZeri as funzioniZeri
 
 scelta = input("Scegli quale tra le 3 funzioni\n")
 
@@ -43,6 +43,7 @@ insiemeNum = np.linspace(a, b, 100)
 plt.plot(insiemeNum, 0 * insiemeNum, fNumerica(insiemeNum), 'r-')
 
 funcName = 'Function ' + str(f)
+
 plt.title(funcName)
 
 plt.show()
@@ -119,7 +120,7 @@ import numpy as np
 
 import sympy as sym
 
-import funzioniZeri
+import res.funzioniZeri as funzioniZeri
 
 import matplotlib.pyplot as plt
 
@@ -178,7 +179,7 @@ for j in range(4):
     
     print('X0= {:e}  zero Secanti= {:e} con {:d} iterazioni \n'.format(x0, xSec, itSec))
 
-    print('------------------------------------------------------------------------------')
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n')
 
 """
 %per j=0,1: 
@@ -201,7 +202,7 @@ import numpy as np
 
 import sympy as sym
 
-import funzioniZeri
+import res.funzioniZeri as funzioniZeri
 
 import matplotlib.pyplot as plt
 
@@ -235,12 +236,16 @@ nmax = 500
 #Considero come iterato iniziale per Newton: x0=1.2: il metodo converge
 x0=1.2
 
+print(f'{x0=}')
+
 xNew, itNew, xkNew=funzioniZeri.newton(f, df, x0, tolleranzaX, tolleranzaF, nmax)
 
 print('X0= {:e} ,  zero Newton= {:e} con {:d} iterazioni \n'.format(x0, xNew, itNew))
 
-#Considero come iterato iniziale per Newton: x0=1.2: il metodo non converge  
+#Considero come iterato iniziale per Newton: x0=1.4: il metodo non converge  
 x0=1.4
+
+print(f'{x0=}')
 
 xNew, itNew, xkNew=funzioniZeri.newton(f, df, x0, tolleranzaX, tolleranzaF, nmax)
 
@@ -265,17 +270,22 @@ tolleranzaX = 1.e-12
 
 tolleranzaF = 1.e-12
 
+
+# Trascrivo la funzione 
+
 x = sym.symbols('x')
 
 fname = f = x**3 + x**2 -33*x + 63
 
 deltaF = sym.diff(f, x, 1)
 
-#Trasformo in numeriche le funzioni 
+# Trasformo in numeriche le funzioni 
 
 f = lambdify(x, f, np)
 
 deltaF = lambdify(x, deltaF, np)
+
+# Grafico della funzione 
 
 insiemeNum = np.linspace(-10, 10, 100)
 
@@ -283,8 +293,9 @@ plt.plot(insiemeNum, 0 * insiemeNum, insiemeNum, f(insiemeNum), 'r-')
 
 plt.title(fname)
 
-plt.show() #grafico della funzione 
+plt.show() 
 
+# Inserisco dati 
 nmax = 500
 
 x0 = 1
@@ -317,7 +328,7 @@ import numpy as np
 
 import sympy as sym
 
-import funzioniZeri
+import res.funzioniZeri as funzioniZeri
 
 import matplotlib.pyplot as plt
 
@@ -371,7 +382,7 @@ import numpy as np
 
 import sympy as sym
 
-import funzioniZeri
+import res.funzioniZeri as funzioniZeri
 
 import matplotlib.pyplot as plt
 
