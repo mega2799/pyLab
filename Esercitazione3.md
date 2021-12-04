@@ -1,8 +1,8 @@
 # Esercitazione 3
 
-![testo](./src/testo_esercitazione_3.pdf)
+![testo](./res/testo_esercitazione_3.pdf)
 
-## 1
+## 1S
 ```py
 import numpy as np
 
