@@ -101,28 +101,30 @@ print("punto fisso di f1: ", x1)
 x1, it, xk = iterazione(f2, x0, tolx, nmax)
 print("punto fisso di f2: ", x1) 
 
+
+## Spiegazione unicita' punto fisso 
+
 #Verifico che 5 sia punto fisso di f1 
-zz = np.linspace(0, 6,100) # (0,6) intervallo in cui 5 è compreso e si vede....
-plt.semilogy(zz, derivataf1(zz), 5, derivataf1(5), 'o')
-plt.plot([0,6], [1, 1], '--')
-plt.plot([0,6], [-1, -1], '--')
+zz = np.linspace(3, 6,100) # (0,6) intervallo in cui 5 è compreso e si vede....
+plt.semilogx(zz, derivataf1(zz), 5, derivataf1(5), 'o')
+plt.plot([-5, 5], [1, 1], '--')
+plt.plot([-5,5], [-1, -1], '--')
 plt.legend(['derivata prima di g1 in un intorno di 5 ','punto fisso' ,'y=1','y=-1'])
 plt.show()
 
 #Verifico se 5 sia punto fisso di f2 
-zz = np.linspace(0, 6,100) # (0,6) intervallo in cui 5 è compreso e si vede....
-plt.semilogy(zz, derivataf2(zz), 5, derivataf2(5), 'o')
-plt.plot([0,6], [1, 1], '--')
-plt.plot([0,6], [-1, -1], '--')
+zz = np.linspace(3, 6,100) # (0,6) intervallo in cui 5 è compreso e si vede....
+plt.semilogx(zz, derivataf2(zz), 5, derivataf2(5), 'o')
+plt.plot([-5, 5], [1, 1], '--')
+plt.plot([-5, 5], [-1, -1], '--')
 plt.legend(['derivata prima di g2 in un intorno di 5 ','punto fisso' ,'y=1','y=-1'])
 plt.show()
-# Il punto fisso qua non è compreso => allora 5 non e punto fisso 
+# Il punto fisso qua non è compreso tra le linee orizzontali => allora 5 non e punto fisso 
 
 #Verifico se 100 sia punto fisso di f2 
-zz = np.linspace(97, 101,100) # (0,6) intervallo in cui 5 è compreso e si vede....
-plt.semilogy(zz, derivataf2(zz), 100, derivataf2(100), 'o')
-plt.plot([97,101], [1, 1], '--')
-plt.plot([97, 101], [-1, -1], '--')
+zz = np.linspace(97, 102,100) # (97, 102) intervallo in cui 100 è compreso e si vede....
+plt.semilogx(zz, derivataf2(zz), 100, derivataf2(100), 'o')
+plt.plot([97,102], [1, 1], '--')
+plt.plot([97, 102], [-1, -1], '--')
 plt.legend(['derivata prima di g2 in un intorno di 100 ','punto fisso' ,'y=1','y=-1'])
 plt.show()
-

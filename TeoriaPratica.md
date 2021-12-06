@@ -1,17 +1,19 @@
 # TeoriaPratica 
 
-### norma 
+### norma 2 
 ```py
 A = np.array([ [3, 5], [3.01, 5.01] ]) # matrice dei coefficenti
 
 npl.norm(A, np.inf)
 ```
-
 ### numero di condizionamento K 
 ```py
 numeroDiCondizionamento = npl.cond(A, np.inf)
 ``` 
-
+### array di numpy 
+```py
+arr = np.zeros((n,), dtype=float) 
+``` 
 ## Teorema Fattorizzazione LU
 
 Una matrice A ammette fattorizzazione LU <=> le matrici minori principali hanno rango massimo, cioe' determinante != 0
@@ -25,15 +27,7 @@ for i in range(0,n):
 
 Per trovare il punto fisso di una funzione si utilizza l'algoritmo delle iterazioni, la convergenza locale è garantita dal teorema in cui ho che | g'(x) | < 1 o in un altro modo che g'(x) sia compreso tra (-1,1)
 
-Avere un solo punto fisso vuol dire che g(x) intersca la bisettrice soltanto una volta
-
-```py
-plt.plot(xx ,dg(xx))
-#Disegno la retta y=1
-plt.plot([-1,1],[1,1],'--')
-#Disegno la retta y=-1
-plt.plot([-1,1],[-1,-1],'--')
-```
+Avere un solo punto fisso vuol dire che g(x) intersca la bisettrice soltanto una volta, vedere [esame](Esami/15-Gennaio2021.py) per chiarimento.
 
 ## Errore relativo
 
