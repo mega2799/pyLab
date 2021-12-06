@@ -408,7 +408,6 @@ x = sym.symbols('x')
 
 gx = sym.sqrt(10 / (x + 4))
 
-
 g = lambdify(x, gx, np)
 
 plt.plot(insiemeNum, insiemeNum, insiemeNum, g(insiemeNum))
