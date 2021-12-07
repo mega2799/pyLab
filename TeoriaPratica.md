@@ -14,6 +14,13 @@ numeroDiCondizionamento = npl.cond(A, np.inf)
 ```py
 arr = np.zeros((n,), dtype=float) 
 ``` 
+### disegnare assi grafico 
+```py
+plt.plot(xx, f(xx))
+plt.axhline(y=0, color='r', ls='--')
+plt.axvline(x=0,color='r', ls='--' )
+plt.show()
+```
 ## Teorema Fattorizzazione LU
 
 Una matrice A ammette fattorizzazione LU <=> le matrici minori principali hanno rango massimo, cioe' determinante != 0
