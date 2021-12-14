@@ -93,9 +93,18 @@ npl.norm(A)
 npl.norm(A, np.inf)
 npl.norm(A, 1)
 ``` 
+
 ### inversa matrice 
 ```py 
 import numpy.linalg as npl 
 
 npl.inv(B)
 ```
+
+### matrice trasposta
+
+```
+A = np.array([ [10, -4, 4, 0], [-4, 10, 0, 2], [4, 0, 10, 2], [0, 2, 2, 0]],dtype=float)
+
+A.T
+``` 
