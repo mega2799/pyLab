@@ -7,6 +7,8 @@ import sympy.utilities.lambdify as lambdify
 import matplotlib.pyplot as plt 
 
 import math
+
+from metodi.pyLab.res.funzioniZeri import newton
 # def funzione 
 
 a = 0 
@@ -77,7 +79,7 @@ for i in range(30, 0, -1):
 
 ery = np.abs(y1 - vettoreSoluzioni) / np.abs(y1)
 
-erz = np.abs(z1[:-1] - vettoreSoluzioni) / np.abs(z1[:-1])
+erz = np.abs(z1[:-1] - vettoreSoluzioni) / np.abs(z1[:-1]) # vettore z1 era di 31 el, quindi elimino l'ultimo (che vale 0) con [:-1]
 
 # e) 
 
@@ -86,4 +88,4 @@ plt.legend(['funzione y', 'funzione z'])
 plt.show()
 
 # L'algoritmo piu stabile sembrerebbe quello della z, ho uno 
-# spike improvviso che si discosta dai valori esatti in y
+# spike improvviso che si discosta dai valori esatti in y 

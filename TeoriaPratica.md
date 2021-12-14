@@ -72,3 +72,30 @@ if flag==0:
    X= solve_nsis_f(P,L,U,I)
 ```
 
+## Fattorizzazione di Cholesky 
+
+Una matrice ammette fattorizzazione di Cholesky se simmetrica e definita positiva.
+
+Verifico sia positiva trovando gli autovalori e verificando che siano tutti positivi
+
+```py 
+import numpy.linalg as npl 
+
+npl.egivals(A) # vettori autovalori
+``` 
+
+### Norma 2, infinito, 1 
+
+```py 
+import numpy.linalg as npl 
+
+npl.norm(A) 
+npl.norm(A, np.inf)
+npl.norm(A, 1)
+``` 
+### inversa matrice 
+```py 
+import numpy.linalg as npl 
+
+npl.inv(B)
+```
