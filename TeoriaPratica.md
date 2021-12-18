@@ -1,11 +1,5 @@
 # TeoriaPratica 
 
-### norma 2 
-```py
-A = np.array([ [3, 5], [3.01, 5.01] ]) # matrice dei coefficenti
-
-npl.norm(A, np.inf)
-```
 ### numero di condizionamento K 
 ```py
 numeroDiCondizionamento = npl.cond(A, np.inf)
@@ -46,7 +40,7 @@ ipsilon = np.zeros((nval,), dtype=float) # Valore ottenuto
 erroreRelativo = np.abs(iccs - ipsilon) / np.abs(icc) 
 ```
 
-## Metodo iterativo converge qudraticamente ---> Newton
+## Metodo iterativo converge qudraticamente ---> Newton modificato con m = molteplicita soluzione
 
 ## Risolvere equazione
 
