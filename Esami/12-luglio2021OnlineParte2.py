@@ -19,7 +19,7 @@ Zmeno1 = lambda a: np.array([[-55* a -557, 83 *a + 842, -28*a - 284] , [55*a +61
 
 # a) norma infinito e il max di ogni elemento della matrice, norma 2 = math.sqrt(A * At) oppure sommatoria di ogni elemento al quadrato 
         # norma 1: sommatoria di valore assoluto di ogni elemento della matrice
-# TODO aggiungere in Teoria pratica le norme 
+
 
 def normaInf(v):
     n, m = v.shape
@@ -45,7 +45,6 @@ for i in range(30, 10000):
     vk.append(KinfZ(i))
 
 plt.plot(range(30, 10000), vk)
-#plt.plot(xx, KinfZ(xx))
 
 plt.show()
 

@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 
 import math
 
-from metodi.pyLab.res.funzioniZeri import newton
 # def funzione 
 
 a = 0 

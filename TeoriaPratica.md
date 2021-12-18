@@ -108,3 +108,15 @@ A = np.array([ [10, -4, 4, 0], [-4, 10, 0, 2], [4, 0, 10, 2], [0, 2, 2, 0]],dtyp
 
 A.T
 ``` 
+
+### norme
+
+norma infinito: il max di ogni elemento della matrice.  
+norma 2 = math.sqrt(A * At) oppure sommatoria di ogni elemento al quadrato.  
+norma 1: sommatoria di valore assoluto di ogni elemento della matrice.
+
+```
+npl.norm(B, 1)
+npl.norm(B, 2)
+npl.norm(B, np.inf)
+```

@@ -1,50 +1,89 @@
+import numpy as np 
+
+import sympy as sym 
+
+import sympy.utilities.lambdify as lambdify 
+
+import matplotlib.pyplot as plt 
+
 import math
 
-import numpy as np
+# def funzione 
 
-import sympy as sym
+a = 0 
 
-import res.funzioniZeri as funzioniZeri
+b = 1
 
-import matplotlib.pyplot as plt
+n = 30 
 
-from sympy.utilities.lambdify import lambdify
+x = sym.symbols('x')
 
-tolleranzaX = 1e-6
+fx = lambda i : x**i / (x + 10)
+def trapComp(fname, a, b, n):
+    h = (b-a)/n 
+    nodi = np.arange(a, b + h, h)
+    f = fname(nodi)
+    I = (f[0] + 2 * np.sum(f[1:n] + f[n])) * h/2 
+    return I 
 
-tolleranzaF = 1e-5
+def traptoll(fun, a, b, toll):
 
-x = sym.symbols('x') 
+    Nmax = 2048 
+    err = 1
 
-fx = sym.atan(x) 
+    N = 1
+    IN = trapComp(fun, a, b, N)
 
-deltaF = sym.diff(fx, x, 1) 
+    while(N <= Nmax and err > toll):
+        N = 2*N 
+        I2N = trapComp(fun,a, b, N)
+        err = abs(IN - I2N)/3
+        IN = I2N
 
-#Trasformo in numeriche la funzione e la sua derivata
+        if N > Nmax:
+            print('raggiunto max')
+            N=0
+            IN = []
+        return IN, N 
 
-f = lambdify(x, fx, np)
+toll = 1e-6 
 
-df = lambdify(x, deltaF, np)
 
-insiemeNum = np.linspace(-10, 10, 100)
 
-plt.plot(insiemeNum, 0 * insiemeNum, insiemeNum, f(insiemeNum), 'r-') #asse X 
 
+vettoreSoluzioni = []
+for i in range(1, n+1):
+    f = fx(i)
+    f = lambdify(x, f, np)
+    vettoreSoluzioni.append(traptoll(f, a, b, toll)[0])
+
+# b) con algoritmo 
+
+y1 = np.zeros((n,), dtype=float)
+
+y1[0] = math.log(11) - math.log(10)
+
+for i in range(1, 30):
+    y1[i] = 1/i - 10 * y1[i - 1]
+
+# c) con algoritmo 
+
+z1 = np.zeros((n +1 ,), dtype=float)
+
+for i in range(30, 0, -1):
+    z1[i - 1] = 1/10 * (1/i + z1[i])
+
+# d) 
+
+ery = np.abs(y1 - vettoreSoluzioni) / np.abs(y1)
+
+erz = np.abs(z1[:-1] - vettoreSoluzioni) / np.abs(z1[:-1]) # vettore z1 era di 31 el, quindi elimino l'ultimo (che vale 0) con [:-1]
+
+# e) 
+
+plt.plot(range(n), ery, range(n), erz)
+plt.legend(['funzione y', 'funzione z'])
 plt.show()
 
-nmax = 500
-
-
-#Considero come iterato iniziale per Newton: x0=1.2: il metodo converge
-x0=1.2
-
-xNew, itNew, xkNew=funzioniZeri.newton(f, df, x0, tolleranzaX, tolleranzaF, nmax)
-
-print('X0= {:e} ,  zero Newton= {:e} con {:d} iterazioni \n'.format(x0, xNew, itNew))
-
-#Considero come iterato iniziale per Newton: x0=1.4: il metodo non converge  
-x0=1.4
-
-xNew, itNew, xkNew=funzioniZeri.newton(f, df, x0, tolleranzaX, tolleranzaF, nmax)
-
-print('X0= {:e} ,  zero Newton= {:e} con {:d} iterazioni \n'.format(x0, xNew, itNew))
+# L'algoritmo piu stabile sembrerebbe quello della z, ho uno 
+# spike improvviso che si discosta dai valori esatti in y 
