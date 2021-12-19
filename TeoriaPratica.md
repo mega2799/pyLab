@@ -96,9 +96,9 @@ A.T
 
 ### norme
 
-norma infinito: il max di ogni elemento della matrice.  
+norma infinito: il max tra le somme di ogni riga della matrice.  
 norma 2 = math.sqrt(A * At) oppure sommatoria di ogni elemento al quadrato.  
-norma 1: sommatoria di valore assoluto di ogni elemento della matrice.
+norma 1: sommatoria di valore assoluto di ogni colonna della matrice.
 
 ```py
 import numpy.linalg as npl 

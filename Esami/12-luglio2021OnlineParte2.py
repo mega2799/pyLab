@@ -11,27 +11,25 @@ import math
 import numpy.linalg as npl
 
 from scipy.optimize import fsolve
+
 # def 
 
-Z = lambda a: np.array([[11+a, 10 + a, 14 +a], [12 +a , 11 +a, a -13], [14 + a, 13 + a, a -66]])
+Z = lambda a: np.array([[11 + a, 10 + a, 14 + a], [12 +a , 11 +a, a -13], [14 + a, 13 + a, a -66]], dtype=float)
 
-Zmeno1 = lambda a: np.array([[-55* a -557, 83 *a + 842, -28*a - 284] , [55*a +610 , -83*a -922, 28*a + 311], [2, -3, 1]]) 
+Zmeno1 = lambda a: np.array([[-55* a -557, 83 *a + 842, -28*a - 284] , [55*a +610 , -83*a -922, 28*a + 311], [2, -3, 1]], dtype=float) 
 
 # a) norma infinito e il max di ogni elemento della matrice, norma 2 = math.sqrt(A * At) oppure sommatoria di ogni elemento al quadrato 
         # norma 1: sommatoria di valore assoluto di ogni elemento della matrice
 
 
 def normaInf(v):
-    n, m = v.shape
-    el = v[0,0]
-    for i in range(n):
-        for j in range(m):
-            if v[i, j] > el:
-                el = v[i,j]
-    return el
-
+    return npl.norm(v, np.inf)
 
 print(normaInf(Z(30)))
+
+print(Z(30))
+
+print(npl.norm(Z(30), np.inf))
 
 print(normaInf(Zmeno1(30)))
 
@@ -182,7 +180,7 @@ def solve_nsis(A,B):
     
     if flag==0:
         for i in range(n):
-            y,flag=Lsolve(L,np.dot(P,B))            # QUI HO CAMBIATO B PER POTER FAR FUNZIONARE, MA CHE ESERCIZIO DI CACCAAAAAA !!!!!
+            y,flag=Lsolve(L,np.dot(P,B[:]))            # QUI HO CAMBIATO B PER POTER FAR FUNZIONARE, MA CHE ESERCIZIO DI CACCAAAAAA !!!!!
             Y[:,i]=y.squeeze(1) # Elimina una dimensione, rendendolo un array 
             x,flag= Usolve(U,Y[:,i])
             X[:,i]=x.squeeze(1)
@@ -195,8 +193,12 @@ def solve_nsis(A,B):
 
 B = lambda a: np.array([3*a + 35,  3*a +10, 3*a -39])
 
-print(solve_nsis(Z(1e7), B(1e7))) # ES DI CACCA, DOVEVAMO CAMBIARE PURE GLI ALGORITMI.........
+X = solve_nsis(Z(1e7), B(1e7).T) # ES DI CACCA, DOVEVAMO CAMBIARE PURE GLI ALGORITMI.........
 
 # e) 
 
-print(fsolve(Z(1e7), B(1e7)))
+b = np.array([1, 1, 1], dtype=float)
+
+err = abs(npl.norm(b, 1) - npl.norm(X, 1)) / abs(npl.norm(b, 1))
+
+# err = abs(npl.norm(X, np.inf) - npl.norm(b, np.inf)) / abs(npl.norm(X, np.inf))
