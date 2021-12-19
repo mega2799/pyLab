@@ -42,7 +42,7 @@ erroreRelativo = np.abs(iccs - ipsilon) / np.abs(icc)
 
 ## Metodo iterativo converge qudraticamente ---> Newton modificato con m = molteplicita soluzione
 
-## Risolvere equazione
+## Risolvere equazione in x0 noto
 
 ```py
 from sympy.utilities.lambdify import lambdify
@@ -78,15 +78,6 @@ import numpy.linalg as npl
 npl.egivals(A) # vettori autovalori
 ``` 
 
-### Norma 2, infinito, 1 
-
-```py 
-import numpy.linalg as npl 
-
-npl.norm(A) 
-npl.norm(A, np.inf)
-npl.norm(A, 1)
-``` 
 
 ### inversa matrice 
 ```py 
@@ -97,7 +88,7 @@ npl.inv(B)
 
 ### matrice trasposta
 
-```
+```py
 A = np.array([ [10, -4, 4, 0], [-4, 10, 0, 2], [4, 0, 10, 2], [0, 2, 2, 0]],dtype=float)
 
 A.T
@@ -109,7 +100,9 @@ norma infinito: il max di ogni elemento della matrice.
 norma 2 = math.sqrt(A * At) oppure sommatoria di ogni elemento al quadrato.  
 norma 1: sommatoria di valore assoluto di ogni elemento della matrice.
 
-```
+```py
+import numpy.linalg as npl 
+
 npl.norm(B, 1)
 npl.norm(B, 2)
 npl.norm(B, np.inf)

@@ -126,7 +126,7 @@ detA = np.prod(np.diag(U))
 
 v = np.array([ [1.2], [3.5], [1.66], [78.0], [44.9]]) # vettore casuale ma scritto cosi in modo che il npl.dot non rompa...
 
-x = solve(A, v) # TODO aggiungere solve a Teoria Pratica.... 
+x = solve(A, v)
 
 res = npl.det( A + np.dot(v, v.T))
 
